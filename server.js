@@ -125,6 +125,18 @@ const server = http.createServer((req, res) => {
     const { balance } = readData()
     res.writeHead(200, { 'Content-Type': 'application/json' })
     res.end(JSON.stringify({ balance }))
+  } else if (req.method === 'POST' && req.url === '/reset-game') {
+    console.log('Resetting game...') // ✅ Check if API is being hit
+
+    const balance = 1000
+    const history = []
+
+    // ✅ Reset balance & history in the file
+    updateData(balance, history)
+
+    // ✅ Send response
+    res.writeHead(200, { 'Content-Type': 'application/json' })
+    res.end(JSON.stringify({ success: true, balance }))
   }
 
   // ✅ Handle Invalid Routes
