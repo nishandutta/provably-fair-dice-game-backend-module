@@ -1,6 +1,6 @@
 ## APIs for Provably Fair Dice Game
 
-First, run the development server:
+Run the backend server:
 
 ```bash
 node server.js
