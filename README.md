@@ -1,4 +1,4 @@
-## APIs for Provably Fair Dice Game Repo
+## APIs for Provably Fair Dice Game
 
 First, run the development server:
 
