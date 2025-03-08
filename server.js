@@ -1,6 +1,5 @@
 const http = require('http')
 const fs = require('fs')
-const crypto = require('crypto')
 
 // File to store balance and game history
 const DATA_FILE = './data.json'
@@ -8,13 +7,6 @@ const DATA_FILE = './data.json'
 // Function to get random dice roll
 function getRandomRoll() {
   return Math.floor(Math.random() * 6) + 1
-}
-
-// Function to generate SHA-256 hash (Provably Fair)
-function generateHash(serverSeed, clientSeed, nonce) {
-  const hash = crypto.createHash('sha256')
-  hash.update(serverSeed + clientSeed + nonce)
-  return hash.digest('hex')
 }
 
 // ✅ Function to read balance and history from data.json
@@ -82,7 +74,6 @@ const server = http.createServer((req, res) => {
       const serverSeed = 'secret-server-seed'
       const clientSeed = 'user-client-seed'
       const nonce = Math.random().toString()
-      const hash = generateHash(serverSeed, clientSeed, nonce)
 
       // ✅ Determine win/lose
       let win = false
@@ -99,7 +90,6 @@ const server = http.createServer((req, res) => {
         bet,
         win,
         newBalance: balance,
-        hash,
         serverSeed,
         clientSeed,
         nonce,
@@ -116,7 +106,6 @@ const server = http.createServer((req, res) => {
           roll,
           win,
           newBalance: balance,
-          hash,
         })
       )
     })
